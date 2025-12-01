@@ -1,21 +1,46 @@
 # 🚀 Dotfiles para Pop!_OS
 
-Configuração personalizada do terminal Zsh com Oh My Zsh, Powerlevel10k e plugins úteis para Pop!_OS.
+Configuração completa de ambiente de desenvolvimento para Pop!_OS com terminal moderno, ferramentas de produtividade e CLIs essenciais.
 
 ## ✨ Características
 
+### 🎨 Terminal Moderno
 - **Zsh** como shell padrão
 - **Oh My Zsh** para gerenciamento de configurações
 - **Powerlevel10k** - tema moderno e rápido com ícones
-- **Fonte Meslo Nerd Font** - suporte completo a ícones
+- **Fontes Nerd Font**:
+  - Meslo Nerd Font (recomendado)
+  - JetBrains Mono Nerd Font
+  - Fira Code Nerd Font
 - **Plugins úteis**:
   - `zsh-autosuggestions` - sugestões baseadas no histórico
   - `zsh-syntax-highlighting` - destaque de sintaxe
   - `zsh-completions` - autocompletar melhorado
   - Git, Docker, e muito mais!
+
+### ⚡ Ferramentas Modernas de Terminal
+- **bat** - `cat` com syntax highlighting
+- **exa** - `ls` moderno com ícones
+- **fzf** - Fuzzy finder para busca rápida
+- **ripgrep** - `grep` ultra rápido
+- **fd** - `find` moderno e intuitivo
+- **neovim** - Editor de texto moderno
+- **tmux** - Multiplexador de terminal
+- **htop** - Monitor de sistema interativo
+- **neofetch** - Informações do sistema
+
+### 🛠️ Ambiente de Desenvolvimento
+- **Node.js** via NVM (Node Version Manager)
+- **Python** via pyenv (Python Version Manager)
+- **Docker** + Docker Compose
+- **GitHub CLI** (gh) - Gerenciar GitHub pela linha de comando
+- **Claude Code CLI** - IA para desenvolvimento
+
+### 🌍 Configurações em PT-BR
 - **Aliases personalizados** em português
 - **Funções úteis** para o dia a dia
-- **Configuração do Powerlevel10k** totalmente traduzida para PT-BR
+- **Configuração do Powerlevel10k** totalmente traduzida
+- **Mensagens e documentação** em português
 
 ## 📋 Pré-requisitos
 
@@ -195,6 +220,88 @@ help      # Mostra comandos úteis
 aliases   # Lista todos os aliases disponíveis
 ```
 
+## 🚀 Ferramentas Instaladas
+
+### Ferramentas Modernas de Terminal
+
+#### bat - cat aprimorado
+```bash
+cat arquivo.txt    # Usa bat automaticamente com syntax highlighting
+catp arquivo.txt   # bat com paginação
+```
+
+#### exa - ls moderno
+```bash
+ls       # Lista arquivos com ícones
+ll       # Lista detalhada com ícones e info do git
+tree     # Visualiza estrutura de diretórios em árvore
+```
+
+#### fzf - Fuzzy Finder
+```bash
+Ctrl+R   # Busca no histórico de comandos
+Ctrl+T   # Busca arquivos no diretório atual
+Alt+C    # Navega para um diretório
+```
+
+#### ripgrep e fd
+```bash
+grep "texto"      # Busca rápida com ripgrep (alias para rg)
+find "arquivo"    # Busca de arquivos com fd
+```
+
+#### neovim
+```bash
+nvim arquivo.txt  # Editor de texto moderno
+vim arquivo.txt   # Alias para nvim
+vi arquivo.txt    # Alias para nvim
+```
+
+### Gerenciadores de Versão
+
+#### NVM - Node.js
+```bash
+nvm install 20       # Instala Node.js versão 20
+nvm use 20           # Usa Node.js versão 20
+nvm list             # Lista versões instaladas
+node --version       # Verifica versão atual
+npm --version        # Verifica versão do npm
+```
+
+#### pyenv - Python
+```bash
+pyenv install 3.12.0  # Instala Python 3.12.0
+pyenv global 3.12.0   # Define versão global
+pyenv local 3.11.0    # Define versão local (por projeto)
+pyenv versions        # Lista versões instaladas
+python --version      # Verifica versão atual
+```
+
+### Docker
+
+```bash
+docker ps            # Lista containers em execução
+docker-compose up -d # Inicia containers em background
+```
+
+**Nota:** Após a instalação, faça logout/login para usar Docker sem sudo.
+
+### CLIs de Desenvolvimento
+
+#### GitHub CLI
+```bash
+gh auth login        # Fazer login no GitHub
+gh repo create       # Criar repositório
+gh pr create         # Criar pull request
+gh issue list        # Listar issues
+```
+
+#### Claude Code
+```bash
+claude auth login    # Fazer login no Claude Code
+claude               # Iniciar sessão interativa
+```
+
 ## 🔄 Atualização
 
 Para atualizar os dotfiles:
@@ -288,11 +395,27 @@ Este projeto está sob licença MIT. Sinta-se livre para usar e modificar como d
 
 ## ✨ Créditos
 
+### Terminal e Shell
 - [Oh My Zsh](https://ohmyz.sh/)
 - [Powerlevel10k](https://github.com/romkatv/powerlevel10k)
 - [zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions)
 - [zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting)
 - [zsh-completions](https://github.com/zsh-users/zsh-completions)
+
+### Ferramentas Modernas
+- [bat](https://github.com/sharkdp/bat)
+- [exa](https://github.com/ogham/exa)
+- [fzf](https://github.com/junegunn/fzf)
+- [ripgrep](https://github.com/BurntSushi/ripgrep)
+- [fd](https://github.com/sharkdp/fd)
+- [neovim](https://neovim.io/)
+
+### Gerenciadores e CLIs
+- [NVM](https://github.com/nvm-sh/nvm)
+- [pyenv](https://github.com/pyenv/pyenv)
+- [Docker](https://www.docker.com/)
+- [GitHub CLI](https://cli.github.com/)
+- [Claude Code](https://claude.com/claude-code)
 
 ## 📧 Contato
 

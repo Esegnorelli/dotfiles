@@ -70,6 +70,36 @@ export PATH="$HOME/.local/bin:$PATH"
 export PATH="$HOME/bin:$PATH"
 
 # ============================================================================
+# NVM - Node Version Manager
+# ============================================================================
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # Carrega nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # Carrega nvm bash_completion
+
+# ============================================================================
+# Pyenv - Python Version Manager
+# ============================================================================
+
+export PYENV_ROOT="$HOME/.pyenv"
+if [ -d "$PYENV_ROOT" ]; then
+    export PATH="$PYENV_ROOT/bin:$PATH"
+    eval "$(pyenv init -)"
+    eval "$(pyenv virtualenv-init -)"
+fi
+
+# ============================================================================
+# FZF - Fuzzy Finder
+# ============================================================================
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# Configurações do FZF
+export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border'
+export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+
+# ============================================================================
 # Aliases
 # ============================================================================
 
@@ -79,11 +109,19 @@ alias ...='cd ../..'
 alias ....='cd ../../..'
 alias ~='cd ~'
 
-# Listagem de arquivos
-alias ls='ls --color=auto'
-alias ll='ls -lah'
-alias la='ls -A'
-alias l='ls -CF'
+# Listagem de arquivos (usando exa se disponível)
+if command -v exa &> /dev/null; then
+    alias ls='exa --icons'
+    alias ll='exa -lah --icons --git'
+    alias la='exa -a --icons'
+    alias l='exa --icons'
+    alias tree='exa --tree --icons'
+else
+    alias ls='ls --color=auto'
+    alias ll='ls -lah'
+    alias la='ls -A'
+    alias l='ls -CF'
+fi
 
 # Confirmação para comandos destrutivos
 alias rm='rm -i'
@@ -122,6 +160,24 @@ alias dlogs='docker logs -f'
 alias dstop='docker stop $(docker ps -q)'
 alias drm='docker rm $(docker ps -aq)'
 alias drmi='docker rmi $(docker images -q)'
+
+# Ferramentas Modernas
+if command -v bat &> /dev/null; then
+    alias cat='bat --paging=never'
+    alias catp='bat'  # cat com paginação
+fi
+
+if command -v fd &> /dev/null; then
+    alias find='fd'
+fi
+
+if command -v rg &> /dev/null; then
+    alias grep='rg'
+fi
+
+# Editor
+alias vim='nvim'
+alias vi='nvim'
 
 # Utilitários
 alias atualizar-dotfiles='cd ~/Documentos && git pull && ./install.sh'
