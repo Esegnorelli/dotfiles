@@ -1,0 +1,19 @@
+# Arquivos temporários
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Logs
+*.log
+
+# Backups
+*.backup
+*.backup.*
+
+# Cache
+.cache/
+*.cache
+
+# Claude
+.claude/
