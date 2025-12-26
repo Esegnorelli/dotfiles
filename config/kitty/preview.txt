@@ -1,0 +1,57 @@
+════════════════════════════════════════════════════════════════
+        KITTY TERMINAL - PREVIEW DAS CONFIGURAÇÕES
+════════════════════════════════════════════════════════════════
+
+🎨 TESTE DE CORES:
+
+  Cores básicas:
+  🔴 Vermelho  🟢 Verde   🔵 Azul     🟡 Amarelo
+  🟣 Magenta   🔵 Ciano   ⚫ Preto    ⚪ Branco
+
+  Sintaxe (simulação):
+  function helloWorld() {
+    const greeting = "Hello, World!";
+    console.log(greeting);
+    return true;
+  }
+
+✨ FEATURES ATIVAS:
+
+  ✓ Transparência com blur (92%)
+  ✓ Cursor animado com trilha
+  ✓ Font ligatures: → ⇒ ≠ ≤ ≥ ++ --
+  ✓ URLs clicáveis: https://github.com
+  ✓ Tema Catppuccin Mocha
+  ✓ Tabs com powerline
+  ✓ 50.000 linhas de scrollback
+
+⌨️  ATALHOS PRINCIPAIS:
+
+  Splits:
+  • Ctrl+Shift+\     Split vertical
+  • Ctrl+Shift+-     Split horizontal
+
+  Navegação:
+  • Ctrl+H/J/K/L     Navegar splits (vim-like)
+
+  Tabs:
+  • Ctrl+Shift+T     Nova tab
+  • Ctrl+Shift+W     Fechar tab
+
+  Transparência:
+  • Ctrl+Shift+A M   Mais opaco
+  • Ctrl+Shift+A L   Mais transparente
+
+  Extras:
+  • Ctrl+Shift+/     Buscar com FZF
+  • Ctrl+Shift+F5    Recarregar config
+
+════════════════════════════════════════════════════════════════
+
+Para ver todos os atalhos:
+  cat ~/documentos/github/dotfiles/config/kitty/ATALHOS.md
+
+Para mudar tema:
+  Edite kitty.conf → linha "include theme.conf"
+
+════════════════════════════════════════════════════════════════
