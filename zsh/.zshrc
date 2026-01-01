@@ -117,16 +117,15 @@ fastfetch
 export PATH="$HOME/.local/bin:$PATH"
 
 # ============================================================
-# --- 9. CLAUDE ALTERNATIVO (GLM PROXY) ---
-# Comando 'claude-eco' usa o modelo GLM da Zhipu AI via proxy
-# O comando 'claude' original permanece intacto!
-claude-eco() {
-    ANTHROPIC_BASE_URL="https://open.bigmodel.cn/api/paas/v4" \
-    CLAUDE_MODEL="glm-4.6" \
-    claude "$@"
-}
+# --- 9. CLAUDE API PROVIDERS ---
+# Troque facilmente entre GLM e Claude oficial
 
-# Alias alternativo (escolha o que preferir)
-alias claude-glm='claude-eco'
+# GLM (Zhipu AI) - GLM Coding Lite com GLM-4.7
+alias use-glm='~/.claude/use-glm.sh'
+alias use-claude='~/.claude/use-claude.sh'
+
+# Configuração atual: GLM API
+export ANTHROPIC_BASE_URL="https://open.bigmodel.cn/api/paas/v4"
+export ANTHROPIC_API_KEY="d86b6e08aa434387a9c9393e816c74bd.gguR0XjQxXo5w2V8"
 
 # ============================================================
