@@ -1,0 +1,65 @@
+# ==========================================
+# .gitignore para Dotfiles
+# ==========================================
+# Coloque este arquivo na raiz do seu ~/dotfiles
+
+# === ARQUIVOS SENSÍVEIS (NUNCA COMMITAR) ===
+# Tokens, senhas, chaves privadas
+*.private
+*.secret
+*.key
+*.pem
+.env
+.env.local
+.env.*.local
+
+# SSH keys
+id_rsa
+id_rsa.pub
+id_ed25519
+id_ed25519.pub
+ssh_config
+
+# === ARQUIVOS DE HISTÓRICO ===
+.zsh_history
+.zsh_history.old
+.bash_history
+.python_history
+.node_repl_history
+
+# === ARQUIVOS TEMPORÁRIOS ===
+.DS_Store              # macOS
+Thumbs.db              # Windows
+*.tmp
+*.bak
+*.swp                  # Vim swap files
+*.swo
+*~
+.*.sw[a-z]             # Vim swap files
+
+# === BACKUPS ===
+backup/
+*.backup
+*~
+
+# === CACHES ===
+.cache/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# === EDITORES ===
+.vscode/
+.idea/
+*.sublime-*
+.spyderproject
+.spyproject
+
+# === SISTEMA ===
+.local/share/atuin/    # Histórico do Atuin (pode conter dados sensíveis)
+.local/share/zinit/    # Plugins do Zinit (são baixados automaticamente)
+
+# === ARQUIVOS DE CONFIGURAÇÃO SENSÍVEIS ===
+# Se sua config tiver tokens, use um arquivo separado
+# Exemplo: ~/.config/starship.toml.private
