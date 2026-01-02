@@ -123,6 +123,7 @@ PACMAN_PACKAGES=(
     zsh
     git
     curl
+    stow
 
     # Ferramentas Modernas de CLI
     eza
