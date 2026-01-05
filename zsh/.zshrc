@@ -1,0 +1,511 @@
+# ═══════════════════════════════════════════════════════════════
+# 🚀 Zsh Configuration - Modern & Fast Shell
+# ═══════════════════════════════════════════════════════════════
+
+# ═══════════════════════════════════════════════════════════════
+# 🔧 Environment
+# ═══════════════════════════════════════════════════════════════
+
+export PATH="$HOME/.local/bin:$PATH"
+export EDITOR=nvim
+export VISUAL=nvim
+export PAGER=less
+export LESS='-R -F -X'
+export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+
+# Language & Locale
+export LANG=pt_BR.UTF-8
+export LC_ALL=pt_BR.UTF-8
+
+# ═══════════════════════════════════════════════════════════════
+# 🎨 Starship Prompt
+# ═══════════════════════════════════════════════════════════════
+
+eval "$(starship init zsh)"
+
+# ═══════════════════════════════════════════════════════════════
+# ⌨️ Keybindings
+# ═══════════════════════════════════════════════════════════════
+
+# Vi mode
+bindkey -v
+export KEYTIMEOUT=1
+
+# Better navigation
+bindkey '^L' vi-forward-word
+bindkey '^H' vi-backward-word
+bindkey '^k' up-line-or-search
+bindkey '^j' down-line-or-search
+bindkey '^a' beginning-of-line
+bindkey '^e' end-of-line
+bindkey '^f' forward-char
+bindkey '^b' backward-char
+
+# Edit command line in nvim
+autoload -U edit-command-line
+zle -N edit-command-line
+bindkey '^v' edit-command-line
+
+# ═══════════════════════════════════════════════════════════════
+# 🔍 Completion
+# ═══════════════════════════════════════════════════════════════
+
+setopt prompt_subst
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
+zstyle ':completion:*' list-colors ''
+zstyle ':completion:*' menu select
+zstyle ':completion:*' group-name ''
+zstyle ':completion:*' verbose yes
+zstyle ':completion:*:descriptions' format '%F{yellow}%B%d%b%f'
+zstyle ':completion:*:warnings' format '%F{red}No matches for:%f %d'
+zstyle ':completion:*' accept-exact '*(N)'
+zstyle ':completion:*' use-cache on
+zstyle ':completion:*' cache-path ~/.zcompcache
+
+autoload bashcompinit && bashcompinit
+autoload -Uz compinit
+compinit
+
+# ═══════════════════════════════════════════════════════════════
+# 📜 History
+# ═══════════════════════════════════════════════════════════════
+
+export HISTSIZE=100000
+export SAVEHIST=100000
+export HISTCONTROL=ignoredups
+setopt HIST_IGNORE_DUPS
+setopt HIST_IGNORE_ALL_DUPS
+setopt SHARE_HISTORY
+setopt HIST_REDUCE_BLANKS
+setopt EXTENDED_HISTORY
+setopt HIST_FIND_NO_DUPS
+setopt HIST_SAVE_NO_DUPS
+
+HISTFILE=~/.zsh_history
+
+# ═══════════════════════════════════════════════════════════════
+# 🚦 Options
+# ═══════════════════════════════════════════════════════════════
+
+setopt auto_cd
+setopt auto_pushd
+setopt pushd_ignore_dups
+setopt pushd_silent
+setopt correct
+setopt correct_all
+setopt long_list_jobs
+setopt multios
+setopt notify
+setopt hash_list_all
+setopt complete_in_word
+setopt always_to_end
+setopt glob_complete
+setopt extended_glob
+setopt nomatch
+
+# ═══════════════════════════════════════════════════════════════
+# 🔌 Plugins
+# ═══════════════════════════════════════════════════════════════
+
+# Zsh Autosuggestions
+if [[ -f ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh ]]; then
+  source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
+  ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#6c7086"
+  bindkey '^ ' autosuggest-accept
+  bindkey '^w' autosuggest-execute
+  bindkey '^e' autosuggest-accept
+fi
+
+# Zsh Syntax Highlighting
+if [[ -f ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]]; then
+  source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+fi
+
+# Zoxide (smart cd)
+eval "$(zoxide init zsh)"
+
+# Direnv
+eval "$(direnv hook zsh)"
+
+# ═══════════════════════════════════════════════════════════════
+# 📦 Tmux Auto-start (DISABLED - start tmux manually with 'tmux')
+# ═══════════════════════════════════════════════════════════════
+
+# if [ -z "$TMUX" ] && [ "$TERM" != "linux" ]; then
+#     tmux new-session -A -s main 2>/dev/null || zsh
+# fi
+
+# ═══════════════════════════════════════════════════════════════
+# 🎯 FZF Configuration
+# ═══════════════════════════════════════════════════════════════
+
+export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git --exclude node_modules'
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+export FZF_DEFAULT_OPTS='--height 50% --layout=reverse --border --cycle --color=dark'
+export FZF_COMPLETION_TRIGGER='**'
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# ═══════════════════════════════════════════════════════════════
+# 📋 Aliases
+# ═══════════════════════════════════════════════════════════════
+
+# ═══════════════════════════════════════════════════════════════
+# 🐧 System Aliases
+# ═══════════════════════════════════════════════════════════════
+
+alias cl='clear'
+alias cls='clear && ls'
+alias c='clear'
+alias q='exit'
+alias h='history'
+alias hc='history -c'
+alias zshrc='nvim ~/.zshrc'
+alias szsh='source ~/.zshrc'
+alias nvimrc='nvim ~/.config/nvim/init.lua'
+alias kittyrc='nvim ~/.config/kitty/kitty.conf'
+alias tmuxrc='nvim ~/.config/tmux/tmux.conf'
+alias starshrc='nvim ~/.config/starship.toml'
+
+# ═══════════════════════════════════════════════════════════════
+# 📁 Navigation Aliases (eza)
+# ═══════════════════════════════════════════════════════════════
+
+alias l="eza -l --icons --git -a"
+alias la='eza -la --icons --git'
+alias ll='eza -l --icons --git'
+alias ls='eza --icons'
+alias lt='eza --tree --level=2 --long --icons --git'
+alias ltree='eza --tree --level=2 --icons --git'
+alias l.='eza -la --icons --git | grep "^\."'
+
+# ═══════════════════════════════════════════════════════════════
+# 🔙 Back Navigation
+# ═══════════════════════════════════════════════════════════════
+
+alias ..="cd .."
+alias ...="cd ../.."
+alias ....="cd ../../.."
+alias .....="cd ../../../.."
+alias ......="cd ../../../../.."
+alias cd..='cd ..'
+
+# ═══════════════════════════════════════════════════════════════
+# 📊 System Info
+# ═══════════════════════════════════════════════════════════════
+
+alias df='df -h'
+alias du='du -h'
+alias free='free -h'
+alias top='htop'
+alias psg='ps aux | grep -i'
+alias ports='netstat -tunlp'
+
+# ═══════════════════════════════════════════════════════════════
+# 📝 File Operations
+# ═══════════════════════════════════════════════════════════════
+
+alias mkdir='mkdir -p'
+alias cp='cp -iv'
+alias mv='mv -iv'
+alias rm='rm -iv'
+alias cat='bat --style=plain'
+alias grep='grep --color=auto'
+alias egrep='egrep --color=auto'
+alias fgrep='fgrep --color=auto'
+alias wget='wget -c'
+alias curl='curl -L'
+
+# ═══════════════════════════════════════════════════════════════
+# 🌐 Git Aliases
+# ═══════════════════════════════════════════════════════════════
+
+alias g='git'
+alias ga='git add'
+alias gaa='git add --all'
+alias gap='git add -p'
+alias gau='git add --update'
+alias gb='git branch'
+alias gba='git branch -a'
+alias gbd='git branch -d'
+alias gbD='git branch -D'
+alias gbl='git blame -b -w'
+alias gbs='git bisect'
+alias gbsb='git bisect bad'
+alias gbsg='git bisect good'
+alias gbsr='git bisect reset'
+alias gbss='git bisect start'
+alias gc="git commit -m"
+alias gc!='git commit -v --amend'
+alias gca="git commit -a -m"
+alias gca!='git commit -v -a --amend'
+alias gcan!='git commit -v -a --no-edit --amend'
+alias gcam='git commit -a -m'
+alias gcb='git checkout -b'
+alias gcf='git config --list'
+alias gcl='git clone --recurse-submodules'
+alias gclean='git clean -fd'
+alias gcm='git checkout main'
+alias gco='git checkout'
+alias gcount='git shortlog -sn'
+alias gdiff="git diff"
+alias gcp='git cherry-pick'
+alias gcpa='git cherry-pick --abort'
+alias gcpc='git cherry-pick --continue'
+alias gcs='git commit -S'
+alias gd='git diff'
+alias gdca='git diff --cached'
+alias gds='git diff --staged'
+alias gf='git fetch'
+alias gfa='git fetch --all --tags --prune'
+alias gfo='git fetch origin'
+alias gg='git gui citool'
+alias gga='git gui citool --amend'
+alias ghh='git help'
+alias gignore='git update-index --assume-unchanged'
+alias gignored='git ls-files -v | grep "^[[:lower:]]"'
+alias gk='gitk --all --branches'
+alias gl='git pull'
+alias glg='git log --stat'
+alias glgg='git log --graph'
+alias glgga='git log --graph --decorate --all'
+alias glo='git log --oneline --decorate'
+alias glog='git log --oneline --decorate --graph'
+alias gloo='git log --graph --pretty=format:"%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset" --abbrev-commit'
+alias gm='git merge'
+alias gma='git merge --abort'
+alias gmom='git merge origin/main'
+alias gmt='git mergetool --no-prompt'
+alias gmtvim='git mergetool --no-prompt --tool=vimdiff'
+alias gp='git push'
+alias gpd='git push --dry-run'
+alias gpf='git push --force-with-lease'
+alias gpoat='git push origin --all && git push origin --tags'
+alias gp="git push origin HEAD"
+alias gpr='git pull --rebase'
+alias gpu='git push upstream'
+alias gpv='git push -v'
+alias gr='git remote'
+alias gra='git remote add'
+alias grb='git rebase'
+alias grba='git rebase --abort'
+alias grbc='git rebase --continue'
+alias grbd='git rebase --develop'
+alias grbi='git rebase -i'
+alias grbm='git rebase main'
+alias grbs='git rebase --skip'
+alias gsh='git show'
+alias gsi='git submodule init'
+alias gsu='git submodule update'
+alias gst='git status'
+alias gsta='git stash save'
+alias gstd='git stash drop'
+alias gstl='git stash list'
+alias gsto='git stash pop'
+alias gsw='git switch'
+alias gswc='git switch -c'
+alias gswd='git switch develop'
+alias gswm='git switch main'
+alias gts='git tag -s'
+alias gunignore='git update-index --no-assume-unchanged'
+alias gup='git pull --rebase --autostash'
+alias gwch='git whatchanged -p --abbrev-commit --pretty=medium'
+alias gwip='git add -A; git rm $(git ls-files --deleted) 2> /dev/null; git commit --no-verify -m "--wip-- [skip ci]"'
+
+# ═══════════════════════════════════════════════════════════════
+# 🤖 AI Tools Aliases
+# ═══════════════════════════════════════════════════════════════
+
+# === Z.AI Alias for Claude Code ===
+z.ai() {
+    ANTHROPIC_BASE_URL=https://api.z.ai/api/anthropic ANTHROPIC_AUTH_TOKEN=b1e0d620ccc2409ba86d09f100a6332e.nxCmYzjO2ofU5MjU ANTHROPIC_DEFAULT_HAIKU_MODEL=glm-4.5-air ANTHROPIC_DEFAULT_SONNET_MODEL=glm-4.6 ANTHROPIC_DEFAULT_OPUS_MODEL=glm-4.6 claude "$@"
+}
+
+# === Claude Official (Anthropic) ===
+claude() {
+    ANTHROPIC_DEFAULT_HAIKU_MODEL=claude-3-5-haiku-20241022 ANTHROPIC_DEFAULT_SONNET_MODEL=claude-sonnet-4-5-20250514 ANTHROPIC_DEFAULT_OPUS_MODEL=claude-opus-4-5-20250514 command claude "$@"
+}
+
+# === OpenCode Aliases ===
+alias oc='opencode'
+alias ocrun='opencode run'
+alias ocfree='opencode -m opencode/glm-4.7-free'
+alias ocglm='opencode -m opencode/glm-4.7-free'
+alias occ='opencode --continue'
+alias ochelp='cat ~/GUIA-OPENCODE.md'
+
+# ═══════════════════════════════════════════════════════════════
+# 🔧 Development Aliases
+# ═══════════════════════════════════════════════════════════════
+
+# NPM/Yarn
+alias npmi='npm install'
+alias npms='npm start'
+alias npmb='npm run build'
+alias npmt='npm test'
+alias npmd='npm run dev'
+alias y='yarn'
+alias yi='yarn install'
+alias ys='yarn start'
+alias yb='yarn build'
+alias yt='yarn test'
+alias yd='yarn dev'
+
+# Python
+alias py='python3'
+alias pip='python3 -m pip'
+alias venv='python3 -m venv venv'
+alias activate='source venv/bin/activate'
+
+# Audio Transcriber
+alias transcrever='python3 ~/transcrever_audios.py'
+
+# Docker
+alias d='docker'
+alias dc='docker-compose'
+alias dps='docker ps'
+alias dpsa='docker ps -a'
+alias di='docker images'
+alias dex='docker exec -it'
+
+# ═══════════════════════════════════════════════════════════════
+# 🔍 Search & Find
+# ═══════════════════════════════════════════════════════════════
+
+# fd (better find)
+alias fd='fd --hidden --follow --exclude .git --exclude node_modules'
+
+# ripgrep
+alias rg='rg --hidden --glob "!.git"'
+
+# find with ripgrep
+alias findfile='fd'
+alias findtext='rg'
+
+# ═══════════════════════════════════════════════════════════════
+# 📝 Useful Functions
+# ═══════════════════════════════════════════════════════════════
+
+# Create directory and enter it
+mkcd() {
+    mkdir -p "$1" && cd "$1"
+}
+
+# Extract any archive
+extract() {
+    if [ -f "$1" ]; then
+        case "$1" in
+            *.tar.bz2)   tar xjf "$1"   ;;
+            *.tar.gz)    tar xzf "$1"   ;;
+            *.bz2)       bunzip2 "$1"   ;;
+            *.rar)       unrar x "$1"   ;;
+            *.gz)        gunzip "$1"    ;;
+            *.tar)       tar xf "$1"    ;;
+            *.tbz2)      tar xjf "$1"   ;;
+            *.tgz)       tar xzf "$1"   ;;
+            *.zip)       unzip "$1"     ;;
+            *.Z)         uncompress "$1";;
+            *.7z)        7z x "$1"      ;;
+            *)           echo "'$1' cannot be extracted via extract()" ;;
+        esac
+    else
+        echo "'$1' is not a valid file"
+    fi
+}
+
+# Git branch fuzzy search
+gbr() {
+    git branch | fzf | xargs git checkout
+}
+
+# Search git commits and show details
+glof() {
+    git log --all --oneline --graph | fzf --preview 'echo {} | grep -o "[a-f0-9]\{7\}" | xargs -I % git show --stat %'
+}
+
+# Kill process fuzzy search
+k9() {
+    ps aux | fzf | awk '{print $2}' | xargs kill -9
+}
+
+# Create a backup
+backup() {
+    cp "$1" "$1.bak"
+}
+
+# Get public IP
+myip() {
+    curl -s https://api.ipify.org
+    echo
+}
+
+# Weather report
+weather() {
+    curl -s "wttr.in/${1:-Sao Paulo}?format=3"
+}
+
+# Quick note
+note() {
+    echo "[$(date +%Y-%m-%d\ %H:%M:%S)] $*" >> ~/notes.txt
+}
+
+# Find files by name
+ff() {
+    find . -type f -iname "*$1*"
+}
+
+# Find text in files
+ft() {
+    grep -rI "$1" .
+}
+
+# ═══════════════════════════════════════════════════════════════
+# 🔍 FZF Functions
+# ═══════════════════════════════════════════════════════════════
+
+# Change directory using fzf
+fcd() {
+    cd "$(find . -type d -not -path '*/.*' | fzf)" && l
+}
+
+# Edit file using fzf
+fv() {
+    nvim "$(find . -type f -not -path '*/.*' | fzf)"
+}
+
+# ═══════════════════════════════════════════════════════════════
+# 🎨 Colors
+# ═══════════════════════════════════════════════════════════════
+
+# Enable colors for various commands
+export LS_COLORS='di=34:ln=35:so=32:pi=33:ex=31:bd=34;46:cd=34;43:su=30;41:sg=30;46:tw=30;42:ow=30;43'
+
+# Colorize man pages
+export LESS_TERMCAP_mb=$'\e[1;32m'
+export LESS_TERMCAP_md=$'\e[1;32m'
+export LESS_TERMCAP_me=$'\e[0m'
+export LESS_TERMCAP_se=$'\e[0m'
+export LESS_TERMCAP_so=$'\e[01;33m'
+export LESS_TERMCAP_ue=$'\e[0m'
+export LESS_TERMCAP_us=$'\e[1;4;31m'
+
+# ═══════════════════════════════════════════════════════════════
+# 📦 Tool-specific Configurations
+# ═══════════════════════════════════════════════════════════════
+
+# Bat (cat replacement)
+export BAT_THEME='Catppuccin Mocha'
+export BAT_STYLE='plain'
+
+# Eza (ls replacement)
+export EZA_ICONS_AUTO=true
+
+# Tmux
+export TMUX_PLUGIN_MANAGER_PATH='~/.tmux/plugins'
+
+# ═══════════════════════════════════════════════════════════════
+# 🎯 Load local configurations
+# ═══════════════════════════════════════════════════════════════
+
+if [[ -f ~/.zshrc.local ]]; then
+    source ~/.zshrc.local
+fi

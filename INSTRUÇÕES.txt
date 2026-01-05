@@ -1,0 +1,81 @@
+╔═══════════════════════════════════════════════════════════════════╗
+║              DOTFILES - CONFIGURAÇÃO COMPLETA                     ║
+╚═══════════════════════════════════════════════════════════════════╝
+
+✅ DOTFILES CRIADO EM: ~/dotfiles
+
+📦 CONTEÚDO INCLUÍDO:
+  ├── nvim/          # Neovim completo (LazyVim, plugins, AI)
+  ├── tmux/          # Tmux com plugins (floax, sessionx, catppuccin)
+  ├── zsh/           # Zsh + Oh My Zsh + Powerlevel10k
+  ├── bash/          # Bash configurado
+  ├── git/           # Git configurado
+  ├── scripts/       # Scripts úteis
+  ├── setup.sh       # Script inicial (PC de casa)
+  ├── setup-work.sh  # Script de instalação (PC trabalho)
+  ├── restore.sh     # Restaurar configurações
+  └── sync.sh        # Sincronizar mudanças
+
+🚀 PASSOS PARA ENVIAR PARA GITHUB:
+
+1. EXECUTAR O SETUP INICIAL:
+
+   cd ~/dotfiles
+   ./setup.sh
+
+   Isso vai:
+   - Configurar Git (nome e email)
+   - Gerar chave SSH
+   - Pedir para adicionar chave no GitHub
+   - Criar repositório
+   - Enviar para GitHub
+
+2. OU MANUALMENTE:
+
+   # Configurar Git
+   git config --global user.name "Seu Nome"
+   git config --global user.email "seu@email.com"
+
+   # Gerar SSH key
+   ssh-keygen -t ed25519 -C "seu@email.com"
+   cat ~/.ssh/id_ed25519.pub
+
+   # Adicionar chave em: https://github.com/settings/keys
+
+   # Criar repositório no GitHub chamado "dotfiles"
+
+   # Inicializar e enviar
+   cd ~/dotfiles
+   git init
+   git add .
+   git commit -m "Initial commit"
+   git remote add origin git@github.com:SEU_USUARIO/dotfiles.git
+   git branch -M main
+   git push -u origin main
+
+💻 NO PC DO TRABALHO:
+
+git clone git@github.com:SEU_USUARIO/dotfiles.git ~/dotfiles
+cd ~/dotfiles
+./setup-work.sh
+
+O setup-work.sh vai instalar tudo automaticamente!
+
+🔄 Sincronizar mudanças (no PC de casa ou trabalho):
+
+cd ~/dotfiles
+./sync.sh
+
+📝 Arquivos de configuração:
+- Neovim: ~/.config/nvim
+- Tmux: ~/.tmux.conf
+- Zsh: ~/.zshrc
+- Bash: ~/.bashrc
+- Git: ~/.gitconfig
+
+💡 DICA: Os arquivos são links simbólicos. Quando você edita
+~/.config/nvim/init.lua, está editando ~/dotfiles/nvim/.config/nvim/init.lua
+
+📚 Leia README.md para documentação completa!
+
+╚═══════════════════════════════════════════════════════════════════╝
