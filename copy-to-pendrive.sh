@@ -18,22 +18,38 @@ EOF
 # Sincronizar com GitHub primeiro
 echo "🔄 Sincronizando com GitHub..."
 cd ~/dotfiles
-./sync.sh
+
+if ./sync.sh 2>&1; then
+    echo "✅ Sincronizado com GitHub"
+else
+    echo "⚠️  Aviso: Falha ao sincronizar com GitHub"
+    echo "Continuando com cópia para pen drive..."
+fi
 
 # Detectar pen drive
 echo ""
 echo "🔍 Procurando pen drive..."
 
 PEN_DRIVE=""
-for mount in /media/*/*/ /run/media/*/*/; do
-    if [ -d "$mount" ] && [ "$(df -h "$mount" 2>/dev/null | tail -1 | awk '{print $1}')" != "Filesystem" ]; then
-        PEN_DRIVE="$mount"
-        break
-    fi
+MOUNT_POINTS=("/media/*/*/" "/run/media/*/*/")
+
+for pattern in "${MOUNT_POINTS[@]}"; do
+    for mount in $pattern; do
+        if [ -d "$mount" ]; then
+            DEV=$(df "$mount" 2>/dev/null | tail -1 | awk '{print $1}')
+            if [ "$DEV" != "Filesystem" ] && [[ "$DEV" =~ ^/dev/sd ]]; then
+                PEN_DRIVE="$mount"
+                break 2
+            fi
+        fi
+    done
 done
 
 if [ -z "$PEN_DRIVE" ]; then
-    echo "❌ Pen drive não encontrado. Certifique-se de que está montado."
+    echo "❌ Pen drive não encontrado."
+    echo "Certifique-se de que o pen drive está conectado e montado."
+    echo "Dispositivos disponíveis:"
+    lsblk -o NAME,SIZE,MOUNTPOINT,FSTYPE | grep -E "sd|nvme"
     exit 1
 fi
 
@@ -49,7 +65,7 @@ echo "📦 Tamanho dos dotfiles: $DOTFILES_SIZE"
 # Confirmar
 echo ""
 read -p "Continuar? (s/n): " CONFIRM
-if [ "$CONFIRM" != "s" ]; then
+if [ "$CONFIRM" != "s" ] && [ "$CONFIRM" != "S" ]; then
     echo "❌ Cancelado."
     exit 0
 fi
@@ -63,14 +79,19 @@ if [ -d "$PEN_DRIVE/dotfiles" ]; then
     rm -rf "$PEN_DRIVE/dotfiles"
 fi
 
-rsync -av --progress ~/dotfiles/ "$PEN_DRIVE/dotfiles/" \
+if rsync -av --progress ~/dotfiles/ "$PEN_DRIVE/dotfiles/" \
     --exclude '.git' \
     --exclude 'node_modules' \
     --exclude '.cache' \
     --exclude '*.pyc' \
-    --exclude '__pycache__'
-
-echo "✅ Dotfiles copiados!"
+    --exclude '__pycache__' 2>&1; then
+    echo ""
+    echo "✅ Dotfiles copiados!"
+else
+    echo ""
+    echo "❌ Erro ao copiar dotfiles"
+    exit 1
+fi
 
 # Criar script de instalação no pen drive
 cat > "$PEN_DRIVE/instalar.sh" << 'INSTALL_SCRIPT'

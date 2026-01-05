@@ -19,13 +19,21 @@ echo ""
 echo "📝 Insira a URL do seu repositório GitHub:"
 read -p "Exemplo: git@github.com:esegnorelli/dotfiles.git: " REPO_URL
 
-# Remover remote existente se houver
-if git remote get-url origin &> /dev/null; then
-    git remote remove origin
+# Validar URL
+if [ -z "$REPO_URL" ]; then
+    echo "❌ URL não pode estar vazia"
+    exit 1
 fi
 
-# Adicionar remote
-git remote add origin "$REPO_URL"
+# Remover remote existente se houver
+if git remote get-url origin &> /dev/null 2>&1; then
+    echo "ℹ️  Remote origin já existe, atualizando..."
+    git remote set-url origin "$REPO_URL"
+else
+    echo "ℹ️  Adicionando novo remote..."
+    git remote add origin "$REPO_URL"
+fi
+
 echo "✅ Remote configurado"
 
 # Fazer commit inicial
@@ -43,11 +51,23 @@ fi
 echo ""
 echo "📤 Enviando para GitHub..."
 git branch -M main
-git push -u origin main
 
-echo ""
-echo "✅ SUCESSO! Dotfiles enviados para GitHub!"
-echo ""
-echo "💻 Para usar no PC do trabalho:"
-echo "   git clone git@github.com:esegnorelli/dotfiles.git ~/dotfiles"
-echo "   cd ~/dotfiles && ./setup-work.sh"
+if git push -u origin main 2>&1; then
+    echo ""
+    echo "✅ SUCESSO! Dotfiles enviados para GitHub!"
+    echo ""
+    echo "💻 Para usar no PC do trabalho:"
+    echo "   git clone git@github.com:esegnorelli/dotfiles.git ~/dotfiles"
+    echo "   cd ~/dotfiles && ./setup-work.sh"
+else
+    echo ""
+    echo "❌ Erro ao fazer push. Verifique:"
+    echo "   1. Se a chave SSH está configurada no GitHub"
+    echo "   2. Se o repositório existe no GitHub"
+    echo "   3. Se você tem permissão para push"
+    echo ""
+    echo "   Para configurar a chave SSH:"
+    echo "   cat ~/.ssh/id_ed25519.pub"
+    echo "   Adicione em: https://github.com/settings/keys"
+    exit 1
+fi

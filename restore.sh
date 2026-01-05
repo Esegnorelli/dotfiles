@@ -44,12 +44,23 @@ CONFIG_BACKUP=(
     ".config/nvim"
     ".config/kitty"
     ".config/opencode"
-    ".config/starship.toml"
 )
 
 for dir in "${CONFIG_BACKUP[@]}"; do
     if [ -e "$HOME/$dir" ]; then
         mv "$HOME/$dir" "$BACKUP_DIR/" 2>/dev/null || true
+    fi
+done
+
+# Backup de arquivos de configuração individuais
+CONFIG_FILES=(
+    ".config/starship.toml"
+)
+
+for file in "${CONFIG_FILES[@]}"; do
+    if [ -f "$HOME/$file" ]; then
+        cp "$HOME/$file" "$BACKUP_DIR/" 2>/dev/null || true
+        rm "$HOME/$file" 2>/dev/null || true
     fi
 done
 
@@ -81,8 +92,9 @@ stow -R claude 2>/dev/null || echo "⚠️  claude: conflitos resolvidos"
 stow -R antigravity 2>/dev/null || echo "⚠️  antigravity: conflitos resolvidos"
 
 # Criar link para starship.toml manualmente
-if [ -f ~/dotfiles/starship/.config/starship.toml ]; then
-    ln -sf ~/dotfiles/starship/.config/starship.toml ~/.config/starship.toml
+if [ -f "$HOME/dotfiles/starship/.config/starship.toml" ]; then
+    mkdir -p "$HOME/.config"
+    ln -sf "$HOME/dotfiles/starship/.config/starship.toml" "$HOME/.config/starship.toml"
     echo "✅ starship configurado"
 fi
 

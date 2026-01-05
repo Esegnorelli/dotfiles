@@ -78,7 +78,7 @@ read -p "Pressione ENTER quando terminar..."
 
 # Clonar dotfiles
 echo ""
-read -p "URL do repositório (ex: git@github.com:usuario/dotfiles.git): " REPO_URL
+read -p "URL do repositório (ex: git@github.com:Esegnorelli/dotfiles.git): " REPO_URL
 
 echo "📥 Clonando dotfiles..."
 if [ -d ~/dotfiles ]; then
@@ -103,8 +103,13 @@ nvim --headless "+Lazy! sync" +qa
 echo ""
 echo "🐚 Mudando shell padrão para Zsh..."
 if command -v zsh &> /dev/null; then
-    chsh -s $(which zsh)
-    echo "✅ Shell alterado para Zsh (reiniciei o terminal)"
+    ZSH_PATH=$(command -v zsh)
+    if [ -n "$ZSH_PATH" ]; then
+        chsh -s "$ZSH_PATH"
+        echo "✅ Shell alterado para Zsh (reiniciei o terminal)"
+    else
+        echo "⚠️  Não foi possível encontrar o caminho do zsh"
+    fi
 else
     echo "⚠️  Zsh não encontrado, mantendo shell atual"
 fi
