@@ -1,51 +1,64 @@
 #!/bin/bash
 
-# Script para sincronizar mudanças nos dotfiles
+# Script para sincronizar mudanças dos dotfiles para GitHub
 set -e
 
-echo "🔄 Sincronizando dotfiles..."
+cat << "EOF"
+╔═════════════════════════════════════════════════════════════╗
+║         SINCRONIZAR DOTFILES PARA GITHUB                    ║
+╚═════════════════════════════════════════════════════════════╝
 
+EOF
+
+# Ir para diretório dotfiles
 cd ~/dotfiles
 
-# Verificar se é um repositório git
-if [ ! -d .git ]; then
-    echo "❌ Este não é um repositório git."
-    echo "Execute primeiro: cd ~/dotfiles && git init"
+# Verificar status do git
+echo "📊 Status atual:"
+git status --short
+
+# Pedir mensagem de commit
+echo ""
+echo "📝 Descreva as mudanças:"
+read -p "Mensagem do commit: " COMMIT_MESSAGE
+
+if [ -z "$COMMIT_MESSAGE" ]; then
+    echo "❌ Mensagem de commit vazia. Abortando."
     exit 1
 fi
 
-# Verificar mudanças
-if git diff --quiet && git diff --cached --quiet; then
-    echo "ℹ️  Não há mudanças para sincronizar"
-    exit 0
-fi
-
-# Mostrar mudanças
-echo "📋 Mudanças:"
-git status -s
+# Adicionar todas as mudanças
 echo ""
+echo "📦 Adicionando mudanças..."
+git add .
 
 # Commit
-git add -A
-echo "📝 Escreva a mensagem do commit:"
-read -r COMMIT_MSG
-
-# Validar mensagem do commit
-if [ -z "$COMMIT_MSG" ]; then
-    echo "❌ Mensagem do commit não pode estar vazia"
-    exit 1
-fi
-
-git commit -m "$COMMIT_MSG"
+echo "📝 Criando commit..."
+git commit -m "$COMMIT_MESSAGE"
 
 # Push
+echo ""
 echo "📤 Enviando para GitHub..."
-if git push 2>&1 | grep -q "fatal:.*upstream"; then
-    echo "⚠️  Upstream não configurado. Definindo..."
-    git branch -M main
-    git push -u origin main
-elif git push; then
-    echo "✅ Push bem-sucedido!"
+if git push; then
+    echo ""
+    echo "✅ SUCESSO! Dotfiles sincronizados!"
+else
+    echo ""
+    echo "⚠️  Erro ao fazer push. Tentando push --force..."
+    read -p "Deseja fazer force push? (s/N): " FORCE_PUSH
+    if [ "$FORCE_PUSH" = "s" ] || [ "$FORCE_PUSH" = "S" ]; then
+        git push --force
+        echo "✅ Force push realizado!"
+    else
+        echo "❌ Push não realizado."
+        exit 1
+    fi
 fi
 
-echo "✅ Sincronizado com sucesso!"
+echo ""
+echo "📦 Resumo:"
+echo "   - Commit: $(git log -1 --oneline)"
+echo "   - Branch: $(git branch --show-current)"
+echo ""
+echo "🔄 Para atualizar no PC do trabalho:"
+echo "   cd ~/dotfiles && git pull && ./restore.sh"

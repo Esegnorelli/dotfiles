@@ -1,7 +1,0 @@
-#!/bin/bash
-# Claude Code usando z.ai API (GLM models)
-
-export CLAUDE_CONFIG_PATH="$HOME/.claude/config-zai.json"
-
-echo "🚀 Claude Code + z.ai (GLM-4.6)"
-exec claude "$@"
