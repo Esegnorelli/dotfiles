@@ -1,0 +1,87 @@
+# Configuração Claude + z.ai
+
+## ✅ Configuração Completa
+
+Agora você tem duas instâncias independentes do Claude configuradas:
+
+### 1. **Claude Normal** (Anthropic oficial)
+- **Comando:** `claude`
+- **Autenticação:** Login padrão Anthropic
+- **Primeiro uso:** Execute `/login` para autenticar
+
+### 2. **z.ai Claude** (GLM Models)
+- **Comandos disponíveis:**
+  - `zai-claude` - Comando principal
+  - `z.ai` - Alias alternativo
+- **API Key:** Configurada automaticamente
+- **Modelos disponíveis:**
+  - Haiku → GLM-4.5-air
+  - Sonnet → GLM-4.6
+  - Opus → GLM-4.6
+
+## 🚀 Como Usar
+
+### Claude Normal:
+```bash
+cd seu-projeto
+claude
+```
+
+### z.ai Claude:
+```bash
+cd seu-projeto
+zai-claude
+# ou
+z.ai
+```
+
+## 📁 Arquivos Criados
+
+1. **Script wrapper:** `/home/esegnorelli/.local/bin/zai-claude`
+   - Script executável que configura as variáveis de ambiente
+
+2. **Configuração z.ai:** `/home/esegnorelli/.config/z-ai-claude/config.json`
+   - Configuração personalizada para z.ai
+   - API key e modelos GLM configurados
+
+3. **Aliases no ~/.bashrc:**
+   - `zai-claude` - Comando completo com todas variáveis
+   - `z.ai` - Atalho compatível
+
+## 🔧 Ativar Configuração
+
+Para usar os aliases agora mesmo (sem reiniciar terminal):
+```bash
+source ~/.bashrc
+```
+
+## 🔑 Detalhes da API
+
+**z.ai API:**
+- Base URL: `https://api.z.ai/api/anthropic`
+- API Key: `e81d209ce9ff493daaeb6f747de0b44b.u6QnO4jSwaZGaQ6S`
+- Config Dir: `~/.config/z-ai-claude/`
+
+## ✨ Vantagens
+
+- ✅ Configurações **completamente independentes**
+- ✅ Não há conflito entre Claude oficial e z.ai
+- ✅ Fácil troca entre os dois com comandos simples
+- ✅ API key da z.ai **nunca exposta** no histórico shell (está no script)
+
+## 🐛 Solução de Problemas
+
+### Erro "command not found: zai-claude"
+```bash
+source ~/.bashrc
+```
+
+### Erro 401 no Claude normal
+```bash
+claude
+# Dentro do Claude, execute:
+/login
+```
+
+### Verificar se está usando z.ai
+Ao iniciar `zai-claude`, você verá os modelos GLM disponíveis.

@@ -1,0 +1,5 @@
+#!/bin/bash
+# Atalho rápido para OpenCode com modelo GLM-4.7 gratuito
+
+echo "🚀 Iniciando OpenCode com GLM-4.7 (grátis)"
+exec opencode -m opencode/glm-4.7-free "$@"

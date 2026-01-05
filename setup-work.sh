@@ -35,10 +35,11 @@ if command -v pacman &> /dev/null; then
         nodejs npm \
         python python-pip \
         go \
-        starship
+        starship \
+        kitty
 else
     echo "⚠️  Sistema não é Arch/Manjaro. Instale manualmente:"
-    echo "   git, stow, openssh, neovim, tmux, zsh, fzf, ripgrep, fd, bat"
+    echo "   git, stow, openssh, neovim, tmux, zsh, fzf, ripgrep, fd, bat, starship, kitty"
 fi
 
 echo "✅ Dependências instaladas"
@@ -125,17 +126,24 @@ cat << "EOF"
 
 📦 PACOTES INSTALADOS:
 
-  ✅ Neovim + LazyVim
-  ✅ Tmux + plugins
-  ✅ Zsh + Oh My Zsh + Powerlevel10k
+  ✅ Neovim (LazyVim + plugins + AI)
+  ✅ Tmux (floax, sessionx, catppuccin)
+  ✅ Zsh (Oh My Zsh + Powerlevel10k + fzf)
+  ✅ Kitty terminal
   ✅ Git configurado
   ✅ SSH configurado
-  ✅ Ferramentas úteis (fzf, ripgrep, fd, bat)
+  ✅ Starship prompt
+  ✅ OpenCode (configurações)
+  ✅ Claude (configurações)
+  ✅ Antigravity (configurações)
+  ✅ Scripts úteis
+  ✅ Ferramentas (fzf, ripgrep, fd, bat)
 
 ⚠️  IMPORTANTE:
 
-  - Reinicie o terminal para aplicar Zsh
-  - Na primeira vez que abrir nvim, ele vai instalar os plugins
+  - Reinicie o terminal para aplicar Zsh/Starship
+  - Na primeira vez que abrir nvim, execute :Lazy sync
+  - Execute 'tmux' e pressione Prefix+I para instalar plugins do tmux
   - As configurações são links simbólicos, edits funcionam normal
 
 EOF

@@ -1,0 +1,215 @@
+# ═══════════════════════════════════════════════════════════════
+# 🐱 Kitty Terminal Configuration - Catppuccin Mocha Theme
+# ═══════════════════════════════════════════════════════════════
+
+# Fontes
+font_family FiraCode Nerd Font
+bold_font FiraCode Nerd Font Bold
+italic_font FiraCode Nerd Font Italic
+bold_italic_font FiraCode Nerd Font Bold Italic
+font_size 12.0
+
+# Ligaduras e Cursor
+disable_ligatures never
+cursor_shape beam
+cursor_blink_interval 0.4
+cursor_beam_thickness 1.8
+cursor_underline_thickness 2.0
+
+# Cursor Trail Effect - Moderno e suave
+cursor_trail_step 3
+cursor_trail_decay 0.05 0.15
+cursor_trail_separator "█"
+
+# Scrollback
+scrollback_lines 10000
+scrollback_pager less --chop-long-lines --RAW-CONTROL-CHARS +INPUT_LINE_NUMBER
+
+# Layouts
+enabled_layouts tall:bias=70;fat:bias=70;grid;stack;split
+
+# Tab Bar
+tab_bar_edge bottom
+tab_bar_style powerline
+tab_powerline_style slanted
+tab_title_template "{index}:{fmt.bold}{title}"
+active_tab_font_style bold
+inactive_tab_font_style normal
+
+# Background & Opacity
+background_opacity 0.90
+dynamic_background_opacity yes
+
+# ═══════════════════════════════════════════════════════════════
+# 🎨 Catppuccin Mocha Color Palette
+# ═══════════════════════════════════════════════════════════════
+
+foreground #cdd6f4
+background #1e1e2e
+
+cursor #f5e0dc
+cursor_text_color #1e1e2e
+
+selection_foreground #1e1e2e
+selection_background #cba6f7
+
+url_style #89b4fa
+
+# ANSI Colors
+color0  #45475a
+color1  #f38ba8
+color2  #a6e3a1
+color3  #f9e2af
+color4  #89b4fa
+color5  #f5c2e7
+color6  #94e2d5
+color7  #cdd6f4
+
+# Bright Colors
+color8  #585b70
+color9  #f38ba8
+color10 #a6e3a1
+color11 #f9e2af
+color12 #89b4fa
+color13 #f5c2e7
+color14 #94e2d5
+color15 #bac2de
+
+# ═══════════════════════════════════════════════════════════════
+# 🖼️ Window & Borders
+# ═══════════════════════════════════════════════════════════════
+
+window_margin_width 8
+window_padding_width 8
+window_border_width 2
+draw_minimal_borders yes
+
+active_border_color #cba6f7
+inactive_border_color #45475a
+bell_border_color #f38ba8
+
+# ═══════════════════════════════════════════════════════════════
+# ⌨️ Keybindings
+# ═══════════════════════════════════════════════════════════════
+
+# Modifiers
+kitty_mod ctrl+shift
+
+# Splits
+map kitty_mod+v split_window --vertical
+map kitty_mod+s split_window --horizontal
+
+# Layouts
+map kitty_mod+next_layout next_layout
+
+# Resize
+map kitty_mod+> change_font_size all +2.0
+map kitty_mod+< change_font_size all -2.0
+map kitty_mod+f change_font_size all 0
+map kitty_mod+equal change_font_size all 0
+
+# Scroll
+map kitty_mod+up scroll_line_up
+map kitty_mod+down scroll_line_down
+map kitty_mod+page_up scroll_page_up
+map kitty_mod+page_down scroll_page_down
+map kitty_mod+home scroll_home
+map kitty_mod+end scroll_end
+
+# Navigation
+map kitty_mod+[ next_tab
+map kitty_mod+] previous_tab
+map kitty_mod+t new_tab
+map kitty_mod+w close_tab
+map kitty_mod+f launch --location=hsplit
+map kitty_mod+b launch --location=vsplit
+
+# Copy/Paste
+map kitty_mod+c copy_to_clipboard
+map kitty_mod+v paste_from_clipboard
+map kitty_mod+s show_scrollback
+
+# Misc
+map kitty_mod+enter new_window
+map kitty_mod+n close_window
+map kitty_mod+l next_window
+map kitty_mod+h previous_window
+map kitty_mod+e kitten hints
+
+# ═══════════════════════════════════════════════════════════════
+# 🔔 Bell & Mouse
+# ═══════════════════════════════════════════════════════════════
+
+enable_audio_bell no
+visual_bell_duration 0.3
+window_alert_on_bell yes
+
+mouse_hide_wait 3.0
+focus_follows_mouse no
+sync_to_monitor yes
+
+# ═══════════════════════════════════════════════════════════════
+# 🚀 Performance & Shell
+# ═══════════════════════════════════════════════════════════════
+
+repaint_delay 10
+input_delay 3
+sync_to_monitor yes
+
+shell zsh
+
+# ═══════════════════════════════════════════════════════════════
+# 🎯 Advanced Features
+# ═══════════════════════════════════════════════════════════════
+
+# Tab bar separation
+tab_separator " ┇ "
+
+# ═══════════════════════════════════════════════════════════════
+# ✨ Visual Effects
+# ═══════════════════════════════════════════════════════════════
+
+# Window effects
+window_inactivity_idle_timeout 60
+window_inactivity_hide_cursor 60
+
+# Animated window opening
+tab_bar_min_tabs 2
+
+# Background blur (requires compositor)
+background_blur 30
+background_blur_transparent 0.8
+
+# Tab bar gradient effect
+active_tab_foreground #1e1e2e
+active_tab_background #cba6f7
+inactive_tab_foreground #cdd6f4
+inactive_tab_background #45475a
+
+# Smooth scrolling
+touch_gesture灵敏度_z 1
+
+# Window shake effect
+notify_on_cmd_finish command
+command_on_bell play --no-show-progress --null --channels 1 synth sine 440 fade 0.1 0.1 2>/dev/null &
+
+# URL Hints
+kitten hints hints --regex '\b\w+://\S+' --program @
+
+# Image Preview
+map ctrl+shift+p kitten icat
+
+# ═══════════════════════════════════════════════════════════════
+# 🌈 Terminal Features
+# ═══════════════════════════════════════════════════════════════
+
+term xterm-256color
+allow_remote_control yes
+listen_on unix:/tmp/kitty
+
+# Disable confirmation dialogs
+confirm_os_window_close 0
+hide_window_decorations yes
+remember_window_size yes
+initial_window_width 120
+initial_window_height 40

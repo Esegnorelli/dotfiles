@@ -4,3 +4,37 @@ node_modules/
 *.swo
 *~
 .vscode/
+
+# VS Code extensions (antigravity)
+antigravity/.antigravity/extensions/
+antigravity/.antigravity/extensions/
+
+# Claude sensitive files
+claude/.claude/plugins/
+claude/.claude/todos/
+claude/.claude/debug/
+claude/.claude/downloads/
+claude/.claude/file-history/
+claude/.claude/plans/
+claude/.claude/projects/
+claude/.claude/session-env/
+claude/.claude/.credentials.json
+
+# Tmux plugin submodules (they have their own git)
+tmux/.tmux/plugins/
+
+# Large binaries
+*.onnx
+*.so
+*.dylib
+*.dll
+*.exe
+
+# Cache and temp files
+.cache/
+*.pyc
+__pycache__/
+*.pyo
+
+# Opencode node modules
+opencode/.config/opencode/node_modules/

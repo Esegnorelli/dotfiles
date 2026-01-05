@@ -1,0 +1,83 @@
+#!/usr/bin/env python3
+"""
+Transcritor de Áudio usando OpenAI Whisper
+Transcreve arquivos de áudio para texto.
+"""
+
+import os
+import sys
+import argparse
+from pathlib import Path
+
+
+def main():
+    parser = argparse.ArgumentParser(
+        description="Transcreve arquivos de áudio para texto usando Whisper"
+    )
+    parser.add_argument(
+        "arquivo",
+        help="Caminho do arquivo de áudio (mp3, wav, m4a, ogg, etc.)"
+    )
+    parser.add_argument(
+        "-m", "--modelo",
+        default="base",
+        choices=["tiny", "base", "small", "medium", "large"],
+        help="Tamanho do modelo Whisper (padrão: base)"
+    )
+    parser.add_argument(
+        "-l", "--lingua",
+        default="pt",
+        help="Código do idioma (padrão: pt para português)"
+    )
+    parser.add_argument(
+        "-o", "--saida",
+        help="Arquivo de saída para salvar a transcrição (opcional)"
+    )
+
+    args = parser.parse_args()
+
+    # Verificar se o arquivo existe
+    arquivo_path = Path(args.arquivo)
+    if not arquivo_path.exists():
+        print(f"Erro: Arquivo '{args.arquivo}' não encontrado.", file=sys.stderr)
+        sys.exit(1)
+
+    # Verificar se whisper está instalado
+    try:
+        import whisper
+    except ImportError:
+        print("Instalando Whisper...")
+        os.system("pip install -q openai-whisper")
+        import whisper
+
+    print(f"Carregando modelo '{args.modelo}'...")
+    model = whisper.load_model(args.modelo)
+
+    print(f"Transcrevendo: {args.arquivo}")
+    print("-" * 50)
+
+    # Transcrever
+    result = model.transcribe(
+        str(arquivo_path),
+        language=args.lingua,
+        fp16=False  # Desativar FP16 para compatibilidade
+    )
+
+    texto = result["text"].strip()
+
+    # Exibir na tela
+    print(texto)
+    print("-" * 50)
+
+    # Salvar em arquivo se solicitado
+    if args.saida:
+        with open(args.saida, "w", encoding="utf-8") as f:
+            f.write(texto)
+        print(f"\nTranscrição salva em: {args.saida}")
+
+    # Informações adicionais
+    print(f"\nDuração: {result.get('duration', 0):.1f} segundos")
+
+
+if __name__ == "__main__":
+    main()

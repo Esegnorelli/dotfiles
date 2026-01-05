@@ -1,0 +1,3 @@
+# Kitty session file to start tmux with zsh
+new_tab kitty
+launch zsh --login -c 'exec tmux -2 new-session -A -s kitty'

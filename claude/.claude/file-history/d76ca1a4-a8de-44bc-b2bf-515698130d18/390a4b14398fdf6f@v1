@@ -1,0 +1,15 @@
+#
+# ~/.bashrc
+#
+
+# If not running interactively, don't do anything
+[[ $- != *i* ]] && return
+
+alias ls='ls --color=auto'
+alias grep='grep --color=auto'
+PS1='[\u@\h \W]\$ '
+export PATH="$HOME/.local/bin:$PATH"
+
+# Z.AI Aliases for Claude Code
+alias zai='ANTHROPIC_BASE_URL=https://api.z.ai/api/anthropic ANTHROPIC_AUTH_TOKEN=YOUR-ZAI-API-KEY ANTHROPIC_DEFAULT_HAIKU_MODEL=glm-4.5-air ANTHROPIC_DEFAULT_SONNET_MODEL=glm-4.6 ANTHROPIC_DEFAULT_OPUS_MODEL=glm-4.6 claude'
+alias claude-zai='ANTHROPIC_BASE_URL=https://api.z.ai/api/anthropic ANTHROPIC_AUTH_TOKEN=YOUR-ZAI-API-KEY ANTHROPIC_DEFAULT_HAIKU_MODEL=glm-4.5-air ANTHROPIC_DEFAULT_SONNET_MODEL=glm-4.6 ANTHROPIC_DEFAULT_OPUS_MODEL=glm-4.6 claude'

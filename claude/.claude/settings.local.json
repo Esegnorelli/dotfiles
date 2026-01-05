@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(echo:*)",
+      "Bash(pacman -Q:*)",
+      "Bash(sudo -S pacman -S:*)",
+      "Bash(mkdir:*)",
+      "Bash(ls:*)",
+      "Bash(opencode --help)"
+    ]
+  }
+}

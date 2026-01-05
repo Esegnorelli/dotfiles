@@ -1,0 +1,25 @@
+{
+  "custom_models": [
+    {
+      "model_display_name": "GLM-4.6 (z.ai)",
+      "model": "glm-4.6",
+      "base_url": "https://api.z.ai/api/coding/paas/v4",
+      "api_key": "e81d209ce9ff493daaeb6f747de0b44b.u6QnO4jSwaZGaQ6S",
+      "provider": "generic-chat-completion-api",
+      "max_tokens": 32000
+    },
+    {
+      "model_display_name": "GLM-4.5-air (z.ai)",
+      "model": "glm-4.5-air",
+      "base_url": "https://api.z.ai/api/coding/paas/v4",
+      "api_key": "e81d209ce9ff493daaeb6f747de0b44b.u6QnO4jSwaZGaQ6S",
+      "provider": "generic-chat-completion-api",
+      "max_tokens": 32000
+    }
+  ],
+  "env": {
+    "ANTHROPIC_DEFAULT_HAIKU_MODEL": "glm-4.5-air",
+    "ANTHROPIC_DEFAULT_SONNET_MODEL": "glm-4.6",
+    "ANTHROPIC_DEFAULT_OPUS_MODEL": "glm-4.6"
+  }
+}

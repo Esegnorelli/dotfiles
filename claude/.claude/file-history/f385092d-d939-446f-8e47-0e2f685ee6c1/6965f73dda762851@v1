@@ -1,0 +1,137 @@
+# ═══════════════════════════════════════════════════════════════
+# 🪟 Tmux Configuration - Catppuccin Mocha Theme
+# ═══════════════════════════════════════════════════════════════
+
+# ═══════════════════════════════════════════════════════════════
+# 🔧 Basic Settings
+# ═══════════════════════════════════════════════════════════════
+
+# Increase scrollback buffer size
+set -g history-limit 50000
+
+# Enable focus events
+set -g focus-events on
+
+# Super useful when using "grouped sessions" and multi-monitor setup
+set-window-option -g aggressive-resize on
+
+# Set default shell
+set-option -g default-shell /usr/bin/zsh
+set-option -g default-command /usr/bin/zsh
+
+# Enable true color
+set -g default-terminal "tmux-256color"
+set -ga terminal-overrides ",*256col*:Tc"
+set -ga terminal-overrides '*:Ss=\E[%p1%dTc:Se=\E[2Tc'
+
+# ═══════════════════════════════════════════════════════════════
+# ⌨️ Keybindings
+# ═══════════════════════════════════════════════════════════════
+
+# Set prefix to Ctrl-a (like GNU screen)
+unbind C-b
+set-option -g prefix C-a
+bind-key C-a send-prefix
+
+# Reload configuration
+bind r source-file ~/.tmux.conf \; display "Config reloaded!"
+
+# Split panes using | and -
+bind | split-window -h -c "#{pane_current_path}"
+bind - split-window -v -c "#{pane_current_path}"
+unbind '"'
+unbind %
+
+# Create new window in current path
+bind c new-window -c "#{pane_current_path}"
+
+# Navigate panes using vim-like keys
+bind h select-pane -L
+bind j select-pane -D
+bind k select-pane -U
+bind l select-pane -R
+
+# Navigate windows
+bind -r C-h previous-window
+bind -r C-l next-window
+
+# Resize panes
+bind -r H resize-pane -L 5
+bind -r J resize-pane -D 5
+bind -r K resize-pane -U 5
+bind -r L resize-pane -R 5
+
+# Copy mode vi-style
+setw -g mode-keys vi
+bind -T copy-mode-vi v send -X begin-selection
+bind -T copy-mode-vi y send-keys -X copy-pipe-and-cancel "xclip -in -selection clipboard"
+bind P paste-buffer
+
+# Mouse support
+set -g mouse on
+
+# ═══════════════════════════════════════════════════════════════
+# 🪟 Window & Pane Settings
+# ═══════════════════════════════════════════════════════════════
+
+# Start window and pane numbering at 1
+set -g base-index 1
+setw -g pane-base-index 1
+
+# Renumber windows when one is closed
+set -g renumber-windows on
+
+# Automatically rename windows
+setw -g automatic-rename on
+
+# Don't rename window automatically when running commands
+setw -g allow-rename off
+
+# ═══════════════════════════════════════════════════════════════
+# 🎨 Catppuccin Theme Settings
+# ═══════════════════════════════════════════════════════════════
+
+# Catppuccin flavor
+set -g @catppuccin_flavour 'mocha'
+set -g @catppuccin_window_status_style "rounded"
+
+# Status bar position (top)
+set -g status-position top
+
+# ═══════════════════════════════════════════════════════════════
+# 🔌 TPM (Tmux Plugin Manager)
+# ═══════════════════════════════════════════════════════════════
+
+# List of plugins
+set -g @plugin 'tmux-plugins/tpm'
+set -g @plugin 'tmux-plugins/tmux-sensible'
+set -g @plugin 'catppuccin/tmux'
+set -g @plugin 'tmux-plugins/tmux-resurrect'
+set -g @plugin 'tmux-plugins/tmux-continuum'
+set -g @plugin 'tmux-plugins/tmux-yank'
+set -g @plugin 'tmux-plugins/tmux-cpu'
+
+# ═══════════════════════════════════════════════════════════════
+# 🎯 Plugin Settings
+# ═══════════════════════════════════════════════════════════════
+
+# tmux-resurrect settings
+set -g @resurrect-capture-pane-contents 'on'
+set -g @resurrect-strategy-nvim 'session'
+set -g @resurrect-save-shell-history 'on'
+
+# tmux-continuum settings
+set -g @continuum-restore 'on'
+set -g @continuum-save-interval '15'
+set -g @continuum-boot 'on'
+set -g @continuum-boot-options 'iterm'
+
+# tmux-yank settings
+set -g @yank_selection_mouse 'clipboard'
+set -g @yank_action 'copy-pipe-no-clear'
+
+# ═══════════════════════════════════════════════════════════════
+# 🚀 Initialize TPM (keep this line at the very bottom)
+# ═══════════════════════════════════════════════════════════════
+
+run '~/.tmux/plugins/tpm/tpm'
