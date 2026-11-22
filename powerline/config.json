@@ -1,0 +1,15 @@
+{
+	"common": {
+		"term_truecolor": true,
+		"default_top_theme": "nerd"
+	},
+	"ext": {
+		"shell": {
+			"colorscheme": "solarized",
+			"theme": "default_leftonly"
+		},
+		"tmux": {
+			"colorscheme": "solarized"
+		}
+	}
+}

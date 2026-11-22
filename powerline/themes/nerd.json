@@ -1,0 +1,53 @@
+{
+	"dividers": {
+		"left": {
+			"hard": " ",
+			"soft": " "
+		},
+		"right": {
+			"hard": " ",
+			"soft": " "
+		}
+	},
+	"spaces": 1,
+	"segment_data": {
+		"cwd": {
+			"args": {
+				"ellipsis": "⋯"
+			}
+		},
+		"branch": {
+			"before": " "
+		},
+		"stash": {
+			"before": " "
+		},
+		"date": {
+			"before": " "
+		},
+		"time": {
+			"before": " "
+		},
+		"powerline.segments.common.net.hostname": {
+			"before": " "
+		},
+		"powerline.segments.common.env.user": {
+			"before": " "
+		},
+		"powerline.segments.common.env.virtualenv": {
+			"before": " "
+		},
+		"powerline.segments.common.sys.uptime": {
+			"before": " "
+		},
+		"powerline.segments.common.sys.system_load": {
+			"before": " "
+		},
+		"powerline.segments.shell.jobnum": {
+			"before": " "
+		},
+		"powerline.segments.shell.last_pipe_status": {
+			"before": " "
+		}
+	}
+}
