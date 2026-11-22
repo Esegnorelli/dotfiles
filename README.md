@@ -18,7 +18,7 @@ a configuração de Neovim que o acompanha e um prompt/status line
 | `omarchy/themes/solarized-dark/colors.toml` | Paleta do tema; o Omarchy gera dela as configs dos apps sem arquivo próprio (alacritty, btop, VS Code…) |
 | `omarchy/themes/solarized-dark/ghostty.conf` | Ghostty: ANSI canônico do Solarized e cursor base1 |
 | `omarchy/themes/solarized-dark/foot.ini` | foot: a mesma paleta do Ghostty |
-| `omarchy/themes/solarized-dark/neovim.lua` | Neovim/LazyVim com `maxmx03/solarized.nvim` |
+| `omarchy/themes/solarized-dark/neovim.lua` | Neovim/LazyVim com `maxmx03/solarized.nvim` e status line sólida no estilo Solarized do vim-airline |
 | `omarchy/themes/solarized-dark/unlock.png` | Logo das telas de desbloqueio do disco (Plymouth), desligamento e login (SDDM) |
 | `omarchy/themes/solarized-dark/backgrounds/` | Wallpapers CC0 (fontes em `CREDITS.md`) |
 | `nvim/lua/plugins/all-themes.lua` | Instala o solarized.nvim para o hot-reload de tema do Omarchy |
@@ -64,9 +64,10 @@ reiniciar; o login (SDDM) usa o mesmo fundo e logo.
   mudanças), jobs em segundo plano e código de saída do último comando quando
   falha.
 - **tmux** (barra no topo): sessão, janelas, uptime, carga, data, hora e host.
-- **Neovim**: o binding de Vim do Powerline 2.8.4 não roda no Neovim 0.12 (chama
-  `.decode()` na `str` que o pynvim devolve), então o lualine do LazyVim desenha
-  as mesmas setas  .
+- **Neovim**: status line do lualine com as setas   e as cores do tema
+  Solarized do vim-airline (modo em base1/amarelo/magenta/vermelho/violeta, branch
+   sobre base00, arquivo sobre base02). O binding de Vim do Powerline 2.8.4
+  não roda no Neovim 0.12: chama `.decode()` na `str` que o pynvim devolve.
 
 Os separadores (U+E0B0–E0B3) e os ícones vêm da JetBrainsMono Nerd Font, sem
 `powerline-fonts`. O esquema usa os hex do Solarized (`term_truecolor`): os
