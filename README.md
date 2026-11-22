@@ -22,10 +22,11 @@ a configuração de Neovim que o acompanha e um prompt/status line
 | `omarchy/themes/solarized-dark/unlock.png` | Logo das telas de desbloqueio do disco (Plymouth), desligamento e login (SDDM) |
 | `omarchy/themes/solarized-dark/backgrounds/` | Wallpapers CC0 (fontes em `CREDITS.md`) |
 | `nvim/lua/plugins/all-themes.lua` | Instala o solarized.nvim para o hot-reload de tema do Omarchy |
-| `powerline/config.json` | Powerline: esquema `solarized` em truecolor, tema `branch` no bash |
+| `powerline/config.json` | Powerline: esquema `solarized` em truecolor, tema `prompt` no bash |
 | `powerline/themes/nerd.json` | Tema de nível superior do Powerline: separadores e ícones Nerd Font |
-| `powerline/themes/shell/branch.json` | Segmento da direita do prompt: branch com  (U+E0A0), amarela quando há mudanças |
-| `bash/powerline.bash` | Prompt `-> ` (vermelho depois de um comando com erro) com a branch encostada na borda direita da mesma linha; tira o Starship que o Omarchy ativa |
+| `powerline/themes/shell/prompt.json` | Segmentos do prompt: pasta atual à esquerda; branch com  (U+E0A0) à direita, amarela quando há mudanças |
+| `powerline/colorschemes/shell/solarized.json` | Pasta atual do prompt em azul do Solarized, com a pasta final em base3 negrito |
+| `bash/powerline.bash` | Prompt com a pasta atual em Powerline azul e `-> ` (vermelho depois de um comando com erro), com a branch encostada na borda direita da mesma linha; tira o Starship que o Omarchy ativa |
 | `tmux/tmux.conf` | tmux do Omarchy com a status line do Powerline |
 | `nvim/lua/plugins/lualine-powerline.lua` | Separadores e símbolos Powerline no lualine do LazyVim; branch no lado direito |
 
@@ -71,8 +72,9 @@ reiniciar; o login (SDDM) usa o mesmo fundo e logo.
 
 ![Prompt do bash, status do tmux e Neovim com Powerline em Solarized Dark](.github/screenshots/powerline.png)
 
-- **bash**: prompt `-> ` (vermelho quando o último comando falha) e a branch git
-  encostada na borda direita da mesma linha, amarela quando há mudanças.
+- **bash**: pasta atual em Powerline azul (até três níveis), prompt `-> `
+  (vermelho quando o último comando falha) e a branch git encostada na borda
+  direita da mesma linha, amarela quando há mudanças.
 - **tmux** (barra no topo): sessão, janelas, uptime, carga, data, hora e host.
 - **Neovim**: status line do lualine com branch à direita, as cores do tema
   Solarized do vim-airline (modo em base1/amarelo/magenta/vermelho/violeta,

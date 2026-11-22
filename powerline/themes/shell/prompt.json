@@ -1,6 +1,10 @@
 {
 	"segments": {
-		"left": [],
+		"left": [
+			{
+				"function": "powerline.segments.shell.cwd"
+			}
+		],
 		"right": [
 			{
 				"function": "powerline.segments.common.vcs.branch",

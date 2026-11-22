@@ -1,10 +1,11 @@
-# Prompt: "-> " on the left (red after a failed command), the git branch as a
-# Powerline segment on the right edge of the same line (theme "branch" in
-# ~/.config/powerline). Source it last from ~/.bashrc, after Omarchy's rc.
+# Prompt: the current directory as a blue Powerline segment and "-> " on the
+# left (red after a failed command), the git branch as a Powerline segment on
+# the right edge of the same line (theme "prompt" in ~/.config/powerline).
+# Source it last from ~/.bashrc, after Omarchy's rc.
 #
 # Powerline's bash binding only renders the left side, so this hook asks the
-# daemon for the right side and draws it at the last columns, then returns the
-# cursor (DECSC/DECRC) so it takes no room in the prompt.
+# daemon for both sides and draws the right one at the last columns, then
+# returns the cursor (DECSC/DECRC) so it takes no room in the prompt.
 #
 # Omarchy's bash init turns Starship on, so take its prompt hooks back first:
 # it parks the earlier PROMPT_COMMAND in STARSHIP_PROMPT_COMMAND and times
@@ -21,7 +22,7 @@ if [[ ${TERM:-} != dumb ]] && command -v powerline-daemon &>/dev/null; then
   _powerline_arrow_prompt() {
     local status=$? right plain
     right=$(powerline shell right --width="${COLUMNS:-80}" 2>/dev/null)
-    PS1=
+    PS1=$(powerline shell left -r.bash --renderer-arg="client_id=$$" 2>/dev/null)
     if [[ -n $right ]]; then
       plain=$(sed 's/\x1b\[[0-9;]*m//g' <<<"$right")
       # PS1 is expanded again at display time; a branch named $(...) must stay text.
@@ -30,7 +31,7 @@ if [[ ${TERM:-} != dumb ]] && command -v powerline-daemon &>/dev/null; then
       right=${right//\`/\\\`}
       # To the right margin, then back over the segment: right even before
       # checkwinsize has updated $COLUMNS for a new or resized window.
-      PS1="\[\e7\e[999C\e[$((${#plain} - 1))D$right\e8\]"
+      PS1="\[\e7\e[999C\e[$((${#plain} - 1))D$right\e8\]$PS1"
     fi
     if ((status)); then
       PS1+='\[\e[31m\]->\[\e[0m\] '

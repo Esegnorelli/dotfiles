@@ -1,0 +1,7 @@
+{
+	"groups": {
+		"cwd":                { "fg": "solarized:base2", "bg": "solarized:blue", "attrs": [] },
+		"cwd:current_folder": { "fg": "solarized:base3", "bg": "solarized:blue", "attrs": ["bold"] },
+		"cwd:divider":        { "fg": "solarized:base2", "bg": "solarized:blue", "attrs": [] }
+	}
+}
