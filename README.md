@@ -64,15 +64,26 @@ reiniciar; o login (SDDM) usa o mesmo fundo e logo.
   mudanças), jobs em segundo plano e código de saída do último comando quando
   falha.
 - **tmux** (barra no topo): sessão, janelas, uptime, carga, data, hora e host.
-- **Neovim**: status line do lualine com as setas   e as cores do tema
-  Solarized do vim-airline (modo em base1/amarelo/magenta/vermelho/violeta, branch
-   sobre base00, arquivo sobre base02). O binding de Vim do Powerline 2.8.4
-  não roda no Neovim 0.12: chama `.decode()` na `str` que o pynvim devolve.
+- **Neovim**: status line do lualine com as cores do tema Solarized do
+  vim-airline (modo em base1/amarelo/magenta/vermelho/violeta, branch sobre
+  base00, arquivo sobre base02). O binding de Vim do Powerline 2.8.4 não roda no
+  Neovim 0.12: chama `.decode()` na `str` que o pynvim devolve.
 
-Os separadores (U+E0B0–E0B3) e os ícones vêm da JetBrainsMono Nerd Font, sem
-`powerline-fonts`. O esquema usa os hex do Solarized (`term_truecolor`): os
-índices de 256 cores do esquema seguem o Solarized clássico e mostrariam verde
-no lugar de base01 com a paleta ANSI deste tema.
+Todos os símbolos do Powerline estão em uso:
+
+| Glifo | Código | Onde |
+|---|---|---|
+|   | U+E0B0, U+E0B2 | Separadores entre segmentos de cores diferentes |
+|   | U+E0B1, U+E0B3 | Separadores entre segmentos da mesma cor |
+|  | U+E0A0 | Branch git (bash, Neovim) |
+|  | U+E0A1 | Linha atual/total (Neovim) |
+|  | U+E0A3 | Coluna (Neovim) |
+|  | U+E0A2 | Arquivo somente leitura (Neovim); host via SSH (bash) e no tmux |
+
+Eles e os demais ícones vêm da JetBrainsMono Nerd Font, sem `powerline-fonts`.
+O esquema usa os hex do Solarized (`term_truecolor`): os índices de 256 cores
+do esquema seguem o Solarized clássico e mostrariam verde no lugar de base01
+com a paleta ANSI deste tema.
 
 ## Instalação
 
