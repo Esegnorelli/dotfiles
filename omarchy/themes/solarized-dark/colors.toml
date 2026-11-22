@@ -1,0 +1,38 @@
+# Solarized Dark by Ethan Schoonover: https://ethanschoonover.com/solarized/
+# Canonical values, except the three marked "derived" (roles Solarized lacks).
+mode = "dark"
+
+accent = "#268bd2"
+selection = "#073642"          # base02
+selection_foreground = "#93a1a1" # base1 (par de realce base02:base1)
+muted = "#586e75"              # base01
+
+background = "#002b36"         # base03
+dark_background = "#00212b"    # derived
+darker_background = "#001a22"  # derived
+lighter_background = "#073642" # base02
+
+foreground = "#839496"         # base0
+dark_foreground = "#657b83"    # base00
+light_foreground = "#93a1a1"   # base1
+bright_foreground = "#fdf6e3"  # base3
+
+red = "#dc322f"
+yellow = "#b58900"
+orange = "#cb4b16"
+green = "#859900"
+cyan = "#2aa198"
+blue = "#268bd2"
+magenta = "#d33682"
+brown = "#7a4f2a"              # derived
+
+# Classic Solarized turns most bright ANSI colors into greys, which hides
+# colored output in modern CLIs. Keep the hues, plus its orange and violet.
+bright_red = "#cb4b16"
+bright_yellow = "#b58900"
+bright_green = "#859900"
+bright_cyan = "#2aa198"
+bright_blue = "#268bd2"
+bright_magenta = "#6c71c4"
+
+hyprland_inactive_border = "#073642"
