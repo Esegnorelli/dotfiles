@@ -11,7 +11,8 @@ return {
 		opts.options.component_separators = { left = "", right = "" }
 
 		local sections = opts.sections
-		sections.lualine_b = { { "branch", icon = "" } }
+		-- Branch on the right, ahead of the position, as the shell prompt has it.
+		sections.lualine_b = {}
 
 		-- LazyVim puts its file path right after the filetype icon.
 		for i, component in ipairs(sections.lualine_c) do
@@ -22,6 +23,7 @@ return {
 		end
 
 		sections.lualine_y = {
+			{ "branch", icon = "" },
 			"progress",
 			{
 				function()

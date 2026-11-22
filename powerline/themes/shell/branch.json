@@ -1,0 +1,13 @@
+{
+	"segments": {
+		"left": [],
+		"right": [
+			{
+				"function": "powerline.segments.common.vcs.branch",
+				"args": {
+					"status_colors": true
+				}
+			}
+		]
+	}
+}

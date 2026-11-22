@@ -1,9 +1,14 @@
-# Powerline prompt (Solarized, Nerd Font icons; config in ~/.config/powerline).
-# Source it last from ~/.bashrc, after Omarchy's rc.
+# Prompt: "-> " on the left (red after a failed command), the git branch as a
+# Powerline segment on the right edge of the same line (theme "branch" in
+# ~/.config/powerline). Source it last from ~/.bashrc, after Omarchy's rc.
+#
+# Powerline's bash binding only renders the left side, so this hook asks the
+# daemon for the right side and draws it at the last columns, then returns the
+# cursor (DECSC/DECRC) so it takes no room in the prompt.
 #
 # Omarchy's bash init turns Starship on, so take its prompt hooks back first:
 # it parks the earlier PROMPT_COMMAND in STARSHIP_PROMPT_COMMAND and times
-# commands from PS0. Powerline goes last so its hook runs first and sees $?.
+# commands from PS0.
 if [[ ${TERM:-} != dumb ]] && command -v powerline-daemon &>/dev/null; then
   if [[ ${PROMPT_COMMAND[0]-} == starship_precmd ]]; then
     PROMPT_COMMAND[0]=${STARSHIP_PROMPT_COMMAND-}
@@ -12,9 +17,31 @@ if [[ ${TERM:-} != dumb ]] && command -v powerline-daemon &>/dev/null; then
   PS0=${PS0//'${STARSHIP_START_TIME:$((STARSHIP_START_TIME="$(starship_preexec_ps0)",STARSHIP_PREEXEC_READY=0,0)):0}'/}
 
   powerline-daemon -q
-  POWERLINE_BASH_CONTINUATION=1
-  POWERLINE_BASH_SELECT=1
-  powerline_bash=(/usr/lib/python3*/site-packages/powerline/bindings/bash/powerline.sh)
-  [[ -r ${powerline_bash[0]} ]] && source "${powerline_bash[0]}"
-  unset powerline_bash
+
+  _powerline_arrow_prompt() {
+    local status=$? right plain
+    right=$(powerline shell right --width="${COLUMNS:-80}" 2>/dev/null)
+    PS1=
+    if [[ -n $right ]]; then
+      plain=$(sed 's/\x1b\[[0-9;]*m//g' <<<"$right")
+      # PS1 is expanded again at display time; a branch named $(...) must stay text.
+      right=${right//\\/\\\\}
+      right=${right//\$/\\\$}
+      right=${right//\`/\\\`}
+      # To the right margin, then back over the segment: right even before
+      # checkwinsize has updated $COLUMNS for a new or resized window.
+      PS1="\[\e7\e[999C\e[$((${#plain} - 1))D$right\e8\]"
+    fi
+    if ((status)); then
+      PS1+='\[\e[31m\]->\[\e[0m\] '
+    else
+      PS1+='-> '
+    fi
+    return $status
+  }
+
+  # First in PROMPT_COMMAND, so it sees the exit status of the command.
+  if [[ ${PROMPT_COMMAND[0]} != *_powerline_arrow_prompt* ]]; then
+    PROMPT_COMMAND[0]="_powerline_arrow_prompt${PROMPT_COMMAND[0]:+;${PROMPT_COMMAND[0]}}"
+  fi
 fi

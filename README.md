@@ -18,16 +18,16 @@ a configuração de Neovim que o acompanha e um prompt/status line
 | `omarchy/themes/solarized-dark/colors.toml` | Paleta do tema; o Omarchy gera dela as configs dos apps sem arquivo próprio (alacritty, btop, VS Code…) |
 | `omarchy/themes/solarized-dark/ghostty.conf` | Ghostty: ANSI canônico do Solarized e cursor base1 |
 | `omarchy/themes/solarized-dark/foot.ini` | foot: a mesma paleta do Ghostty |
-| `omarchy/themes/solarized-dark/neovim.lua` | Neovim/LazyVim com `maxmx03/solarized.nvim` e status line sólida no estilo Solarized do vim-airline |
+| `omarchy/themes/solarized-dark/neovim.lua` | Neovim/LazyVim com `maxmx03/solarized.nvim` no mapeamento oficial do vim-colors-solarized, janelas flutuantes sólidas em base02 e status line no estilo Solarized do vim-airline |
 | `omarchy/themes/solarized-dark/unlock.png` | Logo das telas de desbloqueio do disco (Plymouth), desligamento e login (SDDM) |
 | `omarchy/themes/solarized-dark/backgrounds/` | Wallpapers CC0 (fontes em `CREDITS.md`) |
 | `nvim/lua/plugins/all-themes.lua` | Instala o solarized.nvim para o hot-reload de tema do Omarchy |
-| `powerline/config.json` | Powerline: esquema `solarized` em truecolor, tema `default_leftonly` no bash |
+| `powerline/config.json` | Powerline: esquema `solarized` em truecolor, tema `branch` no bash |
 | `powerline/themes/nerd.json` | Tema de nível superior do Powerline: separadores e ícones Nerd Font |
-| `powerline/themes/shell/default_leftonly.json` | Ordem dos segmentos do bash: branch à direita da pasta, como no Starship, amarela com mudanças |
-| `bash/powerline.bash` | Liga o prompt do Powerline no bash e tira o Starship que o Omarchy ativa |
+| `powerline/themes/shell/branch.json` | Segmento da direita do prompt: branch com  (U+E0A0), amarela quando há mudanças |
+| `bash/powerline.bash` | Prompt `-> ` (vermelho depois de um comando com erro) com a branch encostada na borda direita da mesma linha; tira o Starship que o Omarchy ativa |
 | `tmux/tmux.conf` | tmux do Omarchy com a status line do Powerline |
-| `nvim/lua/plugins/lualine-powerline.lua` | Separadores Powerline no lualine do LazyVim |
+| `nvim/lua/plugins/lualine-powerline.lua` | Separadores e símbolos Powerline no lualine do LazyVim; branch no lado direito |
 
 ## Paleta
 
@@ -49,6 +49,17 @@ Diferenças em relação ao Solarized clássico, ambas de propósito:
 - **Brights mantêm as cores** (o clássico transforma quase todos em cinzas),
   com o laranja (9) e o violeta (13) do Solarized.
 
+### Neovim
+
+O solarized.nvim muda papéis do Solarized e cria tons fora da paleta
+(`#002731` e misturas). O `neovim.lua` do tema volta ao mapeamento do
+vim-colors-solarized oficial: constantes e strings cyan, identificadores azul,
+instruções verde, preprocessador laranja, tipos amarelo, especiais vermelho,
+TODO magenta, comentários base01 em itálico. Erros de ortografia ficam com
+sublinhado ondulado (vermelho, violeta, cyan, amarelo). O editor continua
+transparente como no glass do Omarchy; linha de comando, menus e janelas
+flutuantes usam base02 sólido.
+
 ## Tela de desbloqueio e desligamento
 
 ![Tela de desbloqueio do disco em Solarized Dark](omarchy/themes/solarized-dark/preview-unlock.png)
@@ -60,14 +71,14 @@ reiniciar; o login (SDDM) usa o mesmo fundo e logo.
 
 ![Prompt do bash, status do tmux e Neovim com Powerline em Solarized Dark](.github/screenshots/powerline.png)
 
-- **bash**: usuário, virtualenv, diretório, branch git (amarela quando há
-  mudanças), jobs em segundo plano e código de saída do último comando quando
-  falha.
+- **bash**: prompt `-> ` (vermelho quando o último comando falha) e a branch git
+  encostada na borda direita da mesma linha, amarela quando há mudanças.
 - **tmux** (barra no topo): sessão, janelas, uptime, carga, data, hora e host.
-- **Neovim**: status line do lualine com as cores do tema Solarized do
-  vim-airline (modo em base1/amarelo/magenta/vermelho/violeta, branch sobre
-  base00, arquivo sobre base02). O binding de Vim do Powerline 2.8.4 não roda no
-  Neovim 0.12: chama `.decode()` na `str` que o pynvim devolve.
+- **Neovim**: status line do lualine com branch à direita, as cores do tema
+  Solarized do vim-airline (modo em base1/amarelo/magenta/vermelho/violeta,
+  branch sobre base00, arquivo sobre base02). O binding de Vim do Powerline
+  2.8.4 não roda no Neovim 0.12: chama `.decode()` na `str` que o pynvim
+  devolve.
 
 Todos os símbolos do Powerline estão em uso:
 
@@ -78,7 +89,7 @@ Todos os símbolos do Powerline estão em uso:
 |  | U+E0A0 | Branch git (bash, Neovim) |
 |  | U+E0A1 | Linha atual/total (Neovim) |
 |  | U+E0A3 | Coluna (Neovim) |
-|  | U+E0A2 | Arquivo somente leitura (Neovim); host via SSH (bash) e no tmux |
+|  | U+E0A2 | Arquivo somente leitura (Neovim); host no tmux |
 
 Eles e os demais ícones vêm da JetBrainsMono Nerd Font, sem `powerline-fonts`.
 O esquema usa os hex do Solarized (`term_truecolor`): os índices de 256 cores
